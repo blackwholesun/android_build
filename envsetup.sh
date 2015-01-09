@@ -79,6 +79,9 @@ function check_product()
        export BUILD_NUMBER=$((date +%s%N ; echo $CM_BUILD; hostname) | openssl sha1 | sed -e 's/.*=//g; s/ //g' | cut -c1-10)
     else
        CM_BUILD=
+       # Not  cm build, but lets still generate a openssl sha1 build number
+       DEVICE_BUILD=$(echo -n $1 | sed -e 's/^_//g')
+       export BUILD_NUMBER=$((date +%s%N ; echo $DEVICE_BUILD; hostname) | openssl sha1 | sed -e 's/.*=//g; s/ //g' | cut -c1-10)
     fi
     export CM_BUILD
 
